@@ -28,4 +28,9 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::resource('article','ArticleController');
+/*由于restful的article.destory路由无法使用，因此创建以下路由作为删除操作*/
 Route::any('delete/{id}',['uses'=>'ArticleController@destroy','as'=>'article.delete']);
+
+Route::any('commentindex',['uses'=>'CommentController@index','as'=>'comment.index']);
+Route::any('commentdetail/{id}',['uses'=>'CommentController@detail','as'=>'comment.detail']);
+Route::any('commentcreate',['uses'=>'CommentController@create','as'=>'comment.create']);

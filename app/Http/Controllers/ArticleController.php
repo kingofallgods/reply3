@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
     protected $authorid;
+    protected $author;
 
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * 显示文章列表.
      *
@@ -20,11 +25,12 @@ class ArticleController extends Controller
 
     public function index()
     {
-
-        $articles = Article::paginate(5);
+        $this->authorid = Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $this->author=User::find($this->authorid)->name;
+        $articles = DB::table('articles')->where('authorid',$this->authorid)->paginate(3);
 
         return view('article.index', [
-            'articles' => $articles,
+            'articles' => $articles,'author'=>$this->author
         ]);
 
     }
@@ -91,8 +97,10 @@ class ArticleController extends Controller
     {
         $editUrl = route('article.edit', ['post' => $id]);
         $article = Article::find($id);
+        $this->authorid = Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $this->author=User::find($this->authorid)->name;
 
-        return view('article.detail', ['editUrl' => $editUrl, 'article' => $article]);
+        return view('article.detail', ['editUrl' => $editUrl, 'article' => $article,'author'=>$this->author]);
     }
 
     /**

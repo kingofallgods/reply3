@@ -18,8 +18,12 @@
     <div class="jumbotron">
         <div class="container">
             <h2>文章管理中心</h2>
+            <div class="top-right links">
+                <a href="{{ url('/home') }}">Home</a>
 
+            </div>
         </div>
+
     </div>
 @show
 

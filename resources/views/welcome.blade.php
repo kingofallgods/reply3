@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    <a href="{{route('comment.index')}}">文章栏目</a>
                 </div>
 
                 <div class="links">
