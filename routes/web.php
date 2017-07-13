@@ -26,4 +26,6 @@ Route::group(['middleware' => ['web']], function () {
         'id' => '\d+'
     ] );
 });
-Route::resource('post','PostController');
+
+Route::resource('article','ArticleController');
+Route::any('delete/{id}',['uses'=>'ArticleController@destroy','as'=>'article.delete']);

@@ -13,6 +13,9 @@
                 <div class="panel-body">
                     <a href="{{url('user')}}">会员中心</a>
                 </div>
+                <div class="panel-body">
+                    <a href="{{route('article.index')}}">文章中心</a>
+                </div>
             </div>
         </div>
     </div>
