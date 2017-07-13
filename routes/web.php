@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('user', 'UserController@index');
+Route::any('upload', ['uses'=>'UserController@upload']);
+Route::group(['middleware' => ['web']], function () {
+
+    Route::any('user/update/{id}', ['uses' => 'UserController@update'])->where ( [
+        'id' => '\d+'
+    ] );
+});
+Route::resource('post','PostController');
