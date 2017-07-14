@@ -1,6 +1,7 @@
 # reply3
-一、用户验证：
-项目根目录下新建或更新.env，添加或完善以下配置<br/>
+1、运行composer update<br/>
+
+2、项目根目录下新建或更新.env，添加或完善以下配置<br/>
 DB_CONNECTION=mysql<br/>
 DB_HOST=localhost<br/>
 DB_PORT=3306<br/>
@@ -17,4 +18,4 @@ MAIL_USERNAME=#xxx@163.com<br/>
 MAIL_PASSWORD=#xxx@163.com的密码<br/>
 MAIL_ENCRYPTION=ssl<br/>
 
-使用php artisan migrate命令进行数据库迁移<br/>
+3、使用php artisan migrate命令进行数据库迁移<br/>
