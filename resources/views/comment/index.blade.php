@@ -18,7 +18,7 @@
             @foreach ($articles as $key=>$article)
                 <tr>
                     <th scope="row">{{ $i++}}</th>
-                    <td><a href="{{route('comment.detail',['id'=>$article->id])}}">{{ $article->title }}</a></td>
+                    <td><a href="{{route('comment.show',['id'=>$article->id])}}">{{ $article->title }}</a></td>
                     {{--因为数据库中有的是时间戳，有的是格式化之后的日期，所以使用date函数时报错了--}}
                     <td>{{$article->created_at}}</td>
 

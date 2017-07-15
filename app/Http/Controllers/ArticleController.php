@@ -44,7 +44,9 @@ class ArticleController extends Controller
     {
         $postUrl = route('article.store');
         $article = new Article();
-        return view('article.create', ['postUrl' => $postUrl, 'article' => $article]);
+        $token=md5(time()+uniqid());
+        Session::put ($token,1);
+        return view('article.create', ['postUrl' => $postUrl, 'article' => $article,'token'=>$token]);
     }
 
     /**
@@ -55,6 +57,12 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        $token = $request->input('token');
+        if(empty($request->session()->get($token))) {
+            //return response('请勿重复提交', 403);
+            abort('403');
+        }
+        $request->session()->pull($token, null);
         $title = $request->input('title');
         $content = $request->input('content');
         $this->authorid = Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');

@@ -5,6 +5,10 @@
     <input type="hidden" name="_method" value="PUT"/>
     @endif
 
+    @if(Request::getPathInfo() == '/article/create')
+        <input type="hidden" name="token" value="{{$token}}"/>
+    @endif
+
     <div class="form-group">
         <label for="title" class="col-sm-2 control-label">文章标题</label>
 

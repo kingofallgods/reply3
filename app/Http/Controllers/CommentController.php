@@ -30,19 +30,12 @@ class CommentController extends Controller
 
     }
 
-    public function detail($id)
+    public function create()
     {
-        $this->userid=Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
-        $article = DB::table('articles')->join('users',function($join){
-            $join->on('users.id','=','articles.authorid');
-        })->select('users.name', 'articles.title', 'articles.content', 'articles.created_at')->where('articles.id',$id)->get();
-        $comment=$this->show($id);
-        return view('comment.detail', [
-            'article' => $article[0],'id'=>$id,'userid'=>$this->userid,'comment'=>$comment
-        ]);
+
     }
 
-    public function create(Request $request){
+    public function store(Request $request){
         $userid = $request->input('userid');
         if (!isset($userid)){
             return redirect()->route('home');
@@ -77,6 +70,11 @@ class CommentController extends Controller
 
     }
     public function show($id){
+        $this->userid=Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $article = DB::table('articles')->join('users',function($join){
+            $join->on('users.id','=','articles.authorid');
+        })->select('users.name', 'articles.title', 'articles.content', 'articles.created_at')->where('articles.id',$id)->get();
+
         $comment=DB::table ( 'comment' )->join('users',function($join){
             $join->on('users.id','=','comment.userid');
         })->select('users.name','comment.id', 'comment.content', 'comment.parent', 'comment.created_at')
@@ -94,7 +92,9 @@ class CommentController extends Controller
 
         $comment = subtree($arr_comm,0,1);
 
-        return $comment;
+        return view('comment.detail', [
+            'article' => $article[0],'id'=>$id,'userid'=>$this->userid,'comment'=>$comment
+        ]);
     }
 
 }

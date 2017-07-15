@@ -32,7 +32,7 @@
                             @endforeach
                         </div>
                         <div style="width: 100%;margin-bottom: 20px;border-top: 2px solid #333">
-                            <form method="post" action="{{route('comment.create')}}" class="form-horizontal">
+                            <form method="post" action="{{route('comment.store')}}" class="form-horizontal">
                                 {{ csrf_field() }}
                                 <input type="hidden" value="{{$id}}" name="articleid">
                                 <input type="hidden" value="{{$userid}}" name="userid">
