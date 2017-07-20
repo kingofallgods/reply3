@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -70,7 +71,7 @@ class CommentController extends Controller
 
     }
     public function show($id){
-        $this->userid=Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $this->userid=Auth::id();
         $article = DB::table('articles')->join('users',function($join){
             $join->on('users.id','=','articles.authorid');
         })->select('users.name', 'articles.title', 'articles.content', 'articles.created_at')->where('articles.id',$id)->get();

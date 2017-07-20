@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
@@ -21,12 +22,12 @@ class UserController extends Controller
     public function index()
     {
 
-        $id = Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $id = Auth::id();
         $user = User::find($id);
         $ss = Session::all();
         return view('auth.user', [
             'user' => $user,
-            'ss' => $ss
+            'ss' => $ss,
         ]);
     }
 

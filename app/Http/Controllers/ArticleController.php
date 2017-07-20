@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -25,7 +26,7 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $this->authorid = Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $this->authorid = Auth::id();
         $this->author=User::find($this->authorid)->name;
         $articles = DB::table('articles')->where('authorid',$this->authorid)->paginate(3);
 
@@ -65,7 +66,7 @@ class ArticleController extends Controller
         $request->session()->pull($token, null);
         $title = $request->input('title');
         $content = $request->input('content');
-        $this->authorid = Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $this->authorid = Auth::id();
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'content' => 'required',
@@ -105,7 +106,7 @@ class ArticleController extends Controller
     {
         $editUrl = route('article.edit', ['post' => $id]);
         $article = Article::find($id);
-        $this->authorid = Session::get('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d');
+        $this->authorid = Auth::id();
         $this->author=User::find($this->authorid)->name;
 
         return view('article.detail', ['editUrl' => $editUrl, 'article' => $article,'author'=>$this->author]);
